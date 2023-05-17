@@ -68,7 +68,7 @@ admin.update = asyncHandler(async (req, res) => {
       }
     );
     if (updatedUser) {
-      successResponse(res, 201, "User updated successfully.", updatedUser);
+      successResponse(res, 200, "User updated successfully.", updatedUser);
     }
   } catch (error) {
     res.status(500);
