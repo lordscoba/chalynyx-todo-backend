@@ -2,15 +2,19 @@ const mongoose = require("mongoose");
 
 const toDoSchema = mongoose.Schema(
   {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+    },
     username: {
       type: String,
-      unique: true,
       required: true,
+      unique: false,
     },
     email: {
       type: String,
-      unique: true,
       required: true,
+      unique: false,
     },
     title: {
       type: String,
