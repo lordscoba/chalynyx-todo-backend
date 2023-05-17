@@ -1,11 +1,21 @@
-const user = require("../controllers/admin");
+const admin = require("../controllers/admin");
 const express = require("express");
 const app = express();
 const adminRoutes = require("express").Router();
 
-// routes.get("/health", user.health);
-adminRoutes.get("/health/admin", (req, res) => {
-  res.send("admin is working");
-});
+adminRoutes.get("/health/admin", admin.health);
+
+// for users
+adminRoutes.post("/admin/create/user", admin.register);
+adminRoutes.put("/admin/update/user/:id", admin.update);
+adminRoutes.delete("/admin/delete/user/:id", admin.delete);
+adminRoutes.get("/admin/getbyid/user/:id", admin.getbyid);
+adminRoutes.get("/admin/getall/user", admin.getall);
+
+// // for todo
+adminRoutes.put("/admin/update/todo/:id", admin.todoupdate);
+adminRoutes.delete("/admin/delete/todo/:id", admin.tododelete);
+adminRoutes.get("/admin/getbyid/todo/:id", admin.todogetbyid);
+adminRoutes.get("/admin/getall/todo", admin.todogetall);
 
 module.exports = adminRoutes;

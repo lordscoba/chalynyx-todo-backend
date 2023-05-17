@@ -18,6 +18,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
 const todoRoutes = require("./routes/todo");
+const profileRoutes = require("./routes/profile");
 
 // Running routes
 app.use(cors());
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use("/api/", userRoutes);
 app.use("/api/", adminRoutes);
 app.use("/api/", todoRoutes);
+app.use("/api/", profileRoutes);
 
 // Error Middlewares
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
