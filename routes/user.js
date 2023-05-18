@@ -1,6 +1,4 @@
 const user = require("../controllers/auth");
-const express = require("express");
-const app = express();
 const userRoutes = require("express").Router();
 
 userRoutes.get("/health/user", user.health);

@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { successResponse } = require("../utilities/handleResponse");
 const UserModel = require("../models/userModel");
-const mongoose = require("mongoose");
 const tokenHandler = require("../utilities/handleToken");
 
 const user = {};
@@ -24,21 +23,21 @@ user.register = asyncHandler(async (req, res) => {
     });
 
     if (usernameTaken) {
-      res.status(400);
+      res.status(404);
       throw new Error("Username is taken");
     }
 
-    const id = new mongoose.Types.ObjectId();
-
     const newUser = await UserModel.create({
-      _id: id,
       name: name.trim(),
       email: email.trim(),
       username: username.trim(),
       password: password.trim(),
     });
 
-    if (newUser) {
+    if (!newUser) {
+      res.status(500);
+      throw new Error("could not register user");
+    } else {
       successResponse(res, 201, "Account created successfully.", newUser);
     }
   } catch (error) {
@@ -52,7 +51,8 @@ user.login = asyncHandler(async (req, res) => {
 
   try {
     const exists = await UserModel.findOne({
-      $and: [{ username: username.trim() }, { password: password.trim() }],
+      username: username.trim(),
+      password: password.trim(),
     });
 
     if (!exists) {

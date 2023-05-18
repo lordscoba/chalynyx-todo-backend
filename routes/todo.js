@@ -1,6 +1,4 @@
 const todo = require("../controllers/todo");
-const express = require("express");
-const app = express();
 const todoRoutes = require("express").Router();
 
 todoRoutes.get("/health/todo", todo.health);

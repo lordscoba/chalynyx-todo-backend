@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { successResponse } = require("../utilities/handleResponse");
 const toDoModel = require("../models/toDo");
-const mongoose = require("mongoose");
 
 const todo = {};
 
@@ -22,9 +21,7 @@ todo.create = asyncHandler(async (req, res) => {
     }
 
     const status = false;
-    const id = new mongoose.Types.ObjectId();
     const newTodo = await toDoModel.create({
-      _id: id,
       username: username.trim(),
       email: email.trim(),
       title: title.trim(),
@@ -32,7 +29,10 @@ todo.create = asyncHandler(async (req, res) => {
       status: status,
     });
 
-    if (newTodo) {
+    if (!newTodo) {
+      res.status(500);
+      throw new Error("Todo not created");
+    } else {
       successResponse(res, 201, "Task created successfully.", newTodo);
     }
   } catch (error) {
@@ -62,7 +62,10 @@ todo.update = asyncHandler(async (req, res) => {
         new: true,
       }
     );
-    if (updatedTodo) {
+    if (!updatedTodo) {
+      res.status(500);
+      throw new Error("todo could not be updated");
+    } else {
       successResponse(res, 201, "todo updated successfully.", updatedTodo);
     }
   } catch (error) {
@@ -79,7 +82,10 @@ todo.delete = asyncHandler(async (req, res) => {
       throw new Error("Id not found");
     }
     const deleteTodo = await toDoModel.findByIdAndDelete(req.params.id);
-    if (deleteTodo) {
+    if (!deleteTodo) {
+      res.status(500);
+      throw new Error("could not delete todo");
+    } else {
       successResponse(res, 200, "todo deleted successfully.", "User deleted");
     }
   } catch (error) {
@@ -95,8 +101,7 @@ todo.getbyid = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
+    } else {
       successResponse(res, 200, "todo found successfully.", check);
     }
   } catch (error) {
@@ -112,8 +117,7 @@ todo.getall = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
+    } else {
       successResponse(res, 200, "todo found successfully.", check);
     }
   } catch (error) {
