@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { successResponse } = require("../utilities/handleResponse");
 const UserModel = require("../models/userModel");
-const mongoose = require("mongoose");
 const toDoModel = require("../models/toDo");
 
 const admin = {};
@@ -28,17 +27,18 @@ admin.register = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Username is taken");
     }
-    const id = new mongoose.Types.ObjectId();
 
     const newUser = await UserModel.create({
-      _id: id,
       name: name.trim(),
       email: email.trim(),
       username: username.trim(),
       password: password.trim(),
     });
 
-    if (newUser) {
+    if (!newUser) {
+      res.status(500);
+      throw new Error("could not create user");
+    } else {
       successResponse(res, 201, "Account created successfully.", newUser);
     }
   } catch (error) {
@@ -67,7 +67,10 @@ admin.update = asyncHandler(async (req, res) => {
         new: true,
       }
     );
-    if (updatedUser) {
+    if (!updatedUser) {
+      res.status(500);
+      throw new Error("could not update user");
+    } else {
       successResponse(res, 200, "User updated successfully.", updatedUser);
     }
   } catch (error) {
@@ -84,7 +87,11 @@ admin.delete = asyncHandler(async (req, res) => {
       throw new Error("Id not found");
     }
     const deleteUser = await UserModel.findByIdAndDelete(req.params.id);
-    if (deleteUser) {
+
+    if (!deleteUser) {
+      res.status(500);
+      throw new Error("could not delete user");
+    } else {
       successResponse(res, 200, "User deleted successfully.", "User deleted");
     }
   } catch (error) {
@@ -100,8 +107,7 @@ admin.getbyid = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
+    } else {
       successResponse(res, 200, "User found successfully.", check);
     }
   } catch (error) {
@@ -117,8 +123,7 @@ admin.getall = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
+    } else {
       successResponse(res, 200, "Users found successfully.", check);
     }
   } catch (error) {
@@ -150,7 +155,10 @@ admin.todoupdate = asyncHandler(async (req, res) => {
         new: true,
       }
     );
-    if (updatedTodo) {
+    if (!updatedTodo) {
+      res.status(500);
+      throw new Error("could not update todo");
+    } else {
       successResponse(res, 201, "todo updated successfully.", updatedTodo);
     }
   } catch (error) {
@@ -167,8 +175,11 @@ admin.tododelete = asyncHandler(async (req, res) => {
       throw new Error("Id not found");
     }
     const deleteTodo = await toDoModel.findByIdAndDelete(req.params.id);
-    if (deleteTodo) {
-      successResponse(res, 200, "User deleted successfully.", "User deleted");
+    if (!deleteTodo) {
+      res.status(500);
+      throw new Error("could not delete todo");
+    } else {
+      successResponse(res, 200, "todo deleted successfully.", "User deleted");
     }
   } catch (error) {
     res.status(500);
@@ -183,9 +194,8 @@ admin.todogetbyid = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
-      successResponse(res, 200, "User found successfully.", check);
+    } else {
+      successResponse(res, 200, "todo found successfully.", check);
     }
   } catch (error) {
     res.status(500);
@@ -200,9 +210,8 @@ admin.todogetall = asyncHandler(async (req, res) => {
     if (!check) {
       res.status(404);
       throw new Error("Id not found");
-    }
-    if (check) {
-      successResponse(res, 200, "Users found successfully.", check);
+    } else {
+      successResponse(res, 200, "todo found successfully.", check);
     }
   } catch (error) {
     res.status(500);

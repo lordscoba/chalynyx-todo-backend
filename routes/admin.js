@@ -1,6 +1,4 @@
 const admin = require("../controllers/admin");
-const express = require("express");
-const app = express();
 const adminRoutes = require("express").Router();
 
 adminRoutes.get("/health/admin", admin.health);

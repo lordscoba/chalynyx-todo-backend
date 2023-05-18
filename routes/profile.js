@@ -1,6 +1,4 @@
 const profile = require("../controllers/profile");
-const express = require("express");
-const app = express();
 const profileRoutes = require("express").Router();
 
 profileRoutes.put("/update/user/:id", profile.update);
