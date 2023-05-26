@@ -205,7 +205,6 @@ admin.todogetbyid = asyncHandler(async (req, res) => {
 
 admin.todogetall = asyncHandler(async (req, res) => {
   const check = await toDoModel.find();
-
   try {
     if (!check) {
       res.status(404);
