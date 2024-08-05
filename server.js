@@ -26,12 +26,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/api/", userRoutes);
-app.use("/api/", todoRoutes);
 
 // protected routes
 app.use(protectUser);
 app.use("/api/", adminRoutes);
 app.use("/api/", profileRoutes);
+app.use("/api/", todoRoutes);
 
 // Error Middlewares
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
