@@ -5,10 +5,12 @@ const toDoModel = require("../models/toDo");
 const todo = {};
 
 todo.health = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Health']
   res.send("Hello World!");
 });
 
 todo.create = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Todo']
   const { username, email, title, text } = req.body;
   try {
     const titleTaken = await toDoModel.findOne({
@@ -42,6 +44,7 @@ todo.create = asyncHandler(async (req, res) => {
 });
 
 todo.update = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Todo']
   const check = await toDoModel.findById(req.params.id);
   const { username, email, title, text, status } = req.body;
   try {
@@ -75,6 +78,7 @@ todo.update = asyncHandler(async (req, res) => {
 });
 
 todo.delete = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Todo']
   const check = await toDoModel.findById(req.params.id);
   try {
     if (!check) {
@@ -95,6 +99,7 @@ todo.delete = asyncHandler(async (req, res) => {
 });
 
 todo.getbyid = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Todo']
   const check = await toDoModel.findById(req.params.id);
 
   try {
@@ -111,6 +116,7 @@ todo.getbyid = asyncHandler(async (req, res) => {
 });
 
 todo.getall = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Todo']
   const check = await toDoModel.find();
 
   try {

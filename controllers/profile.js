@@ -5,6 +5,7 @@ const UserModel = require("../models/userModel");
 const profile = {};
 
 profile.update = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Profile']
   const check = await UserModel.findById(req.params.id);
   const { name, username, email, password } = req.body;
   try {
@@ -34,6 +35,7 @@ profile.update = asyncHandler(async (req, res) => {
 });
 
 profile.getbyid = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['User Profile']
   const check = await UserModel.findById(req.params.id);
 
   try {
