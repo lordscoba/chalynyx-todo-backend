@@ -18,9 +18,6 @@ const swaggerUi = require("swagger-ui-express");
 const rawData = readFileSync("./swagger/swagger_output.json", "utf-8");
 const swaggerFile = JSON.parse(rawData);
 
-//swagger inititailization
-app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
 // importing middlewares
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -31,6 +28,9 @@ const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
 const todoRoutes = require("./routes/todo");
 const profileRoutes = require("./routes/profile");
+
+//swagger inititailization
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Running routes
 app.use(cors());
