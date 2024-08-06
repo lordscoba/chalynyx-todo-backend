@@ -6,10 +6,12 @@ const tokenHandler = require("../utilities/handleToken");
 const user = {};
 
 user.health = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Health']
   res.send("Hello World!");
 });
 
 user.register = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Authentication']
   const { name, username, email, password } = req.body;
   try {
     const emailTaken = await UserModel.findOne({ email });
@@ -47,6 +49,7 @@ user.register = asyncHandler(async (req, res) => {
 });
 
 user.login = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Authentication']
   const { username, password } = req.body;
 
   try {

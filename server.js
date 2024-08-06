@@ -10,6 +10,17 @@ dotenv.config();
 const connectDB = require("./config/db");
 connectDB();
 
+// importing swagger ui
+const { readFileSync } = require("fs");
+const swaggerUi = require("swagger-ui-express");
+
+// Read the JSON file synchronously
+const rawData = readFileSync("./swagger/swagger_output.json", "utf-8");
+const swaggerFile = JSON.parse(rawData);
+
+//swagger inititailization
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // importing middlewares
 const cors = require("cors");
 const bodyParser = require("body-parser");

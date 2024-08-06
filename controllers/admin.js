@@ -6,10 +6,12 @@ const toDoModel = require("../models/toDo");
 const admin = {};
 
 admin.health = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Health']
   res.send("Hello World!");
 });
 
 admin.register = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Users Management']
   const { name, username, email, password } = req.body;
 
   try {
@@ -48,6 +50,7 @@ admin.register = asyncHandler(async (req, res) => {
 });
 
 admin.update = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Users Management']
   const check = await UserModel.findById(req.params.id);
   const { name, username, email, password } = req.body;
   try {
@@ -80,6 +83,7 @@ admin.update = asyncHandler(async (req, res) => {
 });
 
 admin.delete = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Users Management']
   const check = await UserModel.findById(req.params.id);
   try {
     if (!check) {
@@ -101,6 +105,7 @@ admin.delete = asyncHandler(async (req, res) => {
 });
 
 admin.getbyid = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Users Management']
   const check = await UserModel.findById(req.params.id);
 
   try {
@@ -117,6 +122,7 @@ admin.getbyid = asyncHandler(async (req, res) => {
 });
 
 admin.getall = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Users Management']
   const check = await UserModel.find();
 
   try {
@@ -135,6 +141,7 @@ admin.getall = asyncHandler(async (req, res) => {
 // for todo
 
 admin.todoupdate = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Todo Management']
   const check = await toDoModel.findById(req.params.id);
   const { username, email, title, text, status } = req.body;
   try {
@@ -168,6 +175,7 @@ admin.todoupdate = asyncHandler(async (req, res) => {
 });
 
 admin.tododelete = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Todo Management']
   const check = await toDoModel.findById(req.params.id);
   try {
     if (!check) {
@@ -188,6 +196,7 @@ admin.tododelete = asyncHandler(async (req, res) => {
 });
 
 admin.todogetbyid = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Todo Management']
   const check = await toDoModel.findById(req.params.id);
 
   try {
@@ -204,6 +213,7 @@ admin.todogetbyid = asyncHandler(async (req, res) => {
 });
 
 admin.todogetall = asyncHandler(async (req, res) => {
+  // #swagger.tags = ['Admin Todo Management']
   const check = await toDoModel.find();
   try {
     if (!check) {
