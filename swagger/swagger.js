@@ -5,7 +5,7 @@ const doc = {
     title: "Chalynyx Todo website",
     description: "Description",
   },
-  host: "https://chalynyx-todo-backend.onrender.com",
+  // host: "https://chalynyx-todo-backend.onrender.com",
 };
 
 const outputFile = "./swagger_output.json";
