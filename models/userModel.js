@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema(
     },
     type: {
       type: String, // admin or user
+      default: "user",
     },
   },
   { timestamps: true }
