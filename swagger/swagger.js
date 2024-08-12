@@ -1,11 +1,14 @@
 const swaggerAutogen = require("swagger-autogen");
+const host = require("../config/swagger.config.js");
+
+console.log(host);
 
 const doc = {
   info: {
     title: "Chalynyx Todo website",
     description: "Description",
   },
-  // host: "https://chalynyx-todo-backend.onrender.com",
+  host: host,
 };
 
 const outputFile = "./swagger_output.json";

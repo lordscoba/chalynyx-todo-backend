@@ -63,9 +63,17 @@ user.login = asyncHandler(async (req, res) => {
       throw new Error("Invalid username or password");
     }
 
+    console.log(exists);
+
     successResponse(res, "200", "Login success", {
       username: exists.username,
-      token: tokenHandler.generateToken(username),
+      type: exists.type,
+      token: tokenHandler.generateToken({
+        id: exists._id,
+        email: exists.email,
+        type: exists.type,
+        username: exists.username,
+      }),
     });
   } catch (error) {
     res.status(500);
