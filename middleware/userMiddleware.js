@@ -22,7 +22,7 @@ AuthMiddleware.protectUser = asyncHandler(async (req, res, next) => {
 
       const user = await userModel
         .findOne({
-          username: decoded.fieldToSecure,
+          username: decoded.fieldToSecure.username,
         })
         .select("-password");
 
